@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Logo from '../public/logo.png'
 import { FiBookmark } from 'react-icons/fi'
+import Link from 'next/link'
 
 const styles = {
   wrapper: 'flex max-w-[46rem] h-[10rem] items-center gap-[1rem] cursor-pointer',
@@ -22,37 +23,39 @@ const styles = {
 const PostCard = () => {
   return (
     <>
-      <div className={styles.wrapper}>
-        <div className={styles.postDetails}>
-          <div className={styles.authorContainer}>
-            <div className={styles.authorImageContainer}>
-              <Image
-                className={styles.authorImage}
-                src={Logo}
-                alt=''
-                width={40}
-                height={40}
-              />
+      <Link href={'/post/123'}>
+        <div className={styles.wrapper}>
+          <div className={styles.postDetails}>
+            <div className={styles.authorContainer}>
+              <div className={styles.authorImageContainer}>
+                <Image
+                  className={styles.authorImage}
+                  src={Logo}
+                  alt=''
+                  width={40}
+                  height={40}
+                />
+              </div>
+              <div className={styles.authorName}>Sam Drumm</div>
             </div>
-            <div className={styles.authorName}>Sam Drumm</div>
+            <h1 className={styles.title}>101 ways to fend off doom!</h1>
+            <div className={styles.briefing}>You can learn to survive</div>
+            <div className={styles.detailsContainer}>
+              <span className={styles.articleDetails}>Jan 06 • 6 min read • <span className={styles.category}>survivial</span></span>
+              <span className={styles.bookmarkContainer}><FiBookmark className='w-5, h-5'/></span>
+            </div>
           </div>
-          <h1 className={styles.title}>101 ways to fend off doom!</h1>
-          <div className={styles.briefing}>You can learn to survive</div>
-          <div className={styles.detailsContainer}>
-            <span className={styles.articleDetails}>Jan 06 • 6 min read • <span className={styles.category}>survivial</span></span>
-            <span className={styles.bookmarkContainer}><FiBookmark className='w-5, h-5'/></span>
-          </div>
-        </div>
 
-        <div className={styles.thumbnailContainer}>
-          <Image
-            height={100}
-            width={100}
-            src={Logo}
-            alt=''
-          />
+          <div className={styles.thumbnailContainer}>
+            <Image
+              height={100}
+              width={100}
+              src={Logo}
+              alt=''
+            />
+          </div>
         </div>
-      </div>
+      </Link>
     </>
   )
 }
