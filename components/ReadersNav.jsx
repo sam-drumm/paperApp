@@ -21,7 +21,7 @@ const styles = {
 const ReadersNav = () => {
   return (
     <div className={styles.wrapper}>
-      <Link href='./'>
+      <Link href='/'>
         <div className={styles.logoContainer}>
           <Image
             src={SmallLogo}
