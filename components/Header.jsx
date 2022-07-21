@@ -2,6 +2,20 @@ import React, { useContext } from 'react'
 import Image from 'next/image'
 import Logo from '../public/logo.png'
 import { BlogsiteContext } from '../context/BlogsiteContext'
+import { Modal } from 'react-modal'
+
+Modal.setAppElement('#__next')
+
+const customStyles = {
+  top: '50%',
+  left: '50%',
+  right: 'auto',
+  bottom: 'auto',
+  transform: 'translate(-50%, -50%)',
+  backgroundColor: '#fff',
+  padding: 0,
+  border: 'none'
+}
 
 const styles = {
   wrapper: 'flex justify-center gap-10 p-5 bg-[#FCC017]',
@@ -44,6 +58,11 @@ const Header = () => {
           )}
 
       </div>
+      <Modal
+        isOpen={true}
+        onRequestClose={() => router.push('/')}
+        style={customStyles} >
+      </Modal>
     </div>
   )
 }
