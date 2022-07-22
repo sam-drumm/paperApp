@@ -2,19 +2,27 @@ import React, { useContext } from 'react'
 import Image from 'next/image'
 import Logo from '../public/logo.png'
 import { BlogsiteContext } from '../context/BlogsiteContext'
-import { Modal } from 'react-modal'
+import Modal from 'react-modal'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import PostModal from './PostModal'
 
 Modal.setAppElement('#__next')
 
 const customStyles = {
-  top: '50%',
-  left: '50%',
-  right: 'auto',
-  bottom: 'auto',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: '#fff',
-  padding: 0,
-  border: 'none'
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#fff',
+    padding: 0,
+    border: 'none'
+  },
+  overlay: {
+    backgroundColor: 'rgba(10,11,15,0.75)'
+  }
 }
 
 const styles = {
@@ -27,6 +35,7 @@ const styles = {
 }
 
 const Header = () => {
+  const router = useRouter()
   const { handleUserAuth, currentUser } = useContext(BlogsiteContext)
   return (
     <div className={styles.wrapper}>
@@ -44,7 +53,9 @@ const Header = () => {
           ? <div className={styles.bannerNav}>
             <div>Our Story</div>
             <div>Membership</div>
-            <div className={styles.accentedButton}>Blog</div>
+            <Link href={'/?addNew=1'}>
+              <div className={styles.accentedButton}>Blog</div>
+            </Link>
             <div className={styles.accentedButton}>Pay me</div>
             <div>Logout</div>
           </div>
@@ -59,9 +70,11 @@ const Header = () => {
 
       </div>
       <Modal
-        isOpen={true}
+        isOpen={Boolean(router.query.addNew)}
         onRequestClose={() => router.push('/')}
-        style={customStyles} >
+        style={customStyles}
+      >
+        <PostModal/>
       </Modal>
     </div>
   )
