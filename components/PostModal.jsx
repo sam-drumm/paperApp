@@ -2,19 +2,22 @@ import React, { useContext, useState } from 'react'
 import { BlogsiteContext } from '../context/BlogsiteContext'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 const styles = {
   wrapper: 'w-[70rem] h-[50rem] flex flex-col justify-start items-center gap-[1rem] p-[1rem] font-mediumSerif overflow-scroll',
   title: 'my-[2rem] font-bold text-3xl',
-  smallField: 'w-full flex justify-between gap-[1rem]',
+  smallField: 'w-full flex justify-between gap-[1rem] ',
   fieldTitle: 'flex-1 text-end',
   inputContainer: 'flex-[5] h-min border-2 border-[#787878]',
   inputField: 'w-full border-0 outline-none bg-transparent',
   accentedButton: 'bg-black text-white py-2 px-4 rounded-full',
-  inputError: ''
+
+  errorField: '',
+  errorContainer: '',
+  errorText: 'text-red-400 text-1xl'
 }
 
 const registerSchema = Yup.object().shape({
@@ -40,14 +43,14 @@ const registerSchema = Yup.object().shape({
       'Enter correct url!')
     .required('Please enter website'),
   body: Yup.string()
-    .min(50, 'This must be at least 2 characters long')
-    .max(2500, 'Sorry, this must be under 15 characters long')
+    .min(50, 'This must be at least 20 characters long')
+    .max(2500, 'Sorry, this must be under 2500 characters long')
     .required('Required')
 
 })
 
 const PostModal = () => {
-  // const router = useRouter()
+  const router = useRouter()
   const { currentUser } = useContext(BlogsiteContext)
 
   const formik = useFormik({
@@ -62,39 +65,23 @@ const PostModal = () => {
 
     validationSchema: registerSchema,
 
-    onSubmit: values => {
-      return null
+    onSubmit: async values => {
+      await addDoc(collection(db, 'articles'), {
+        bannerImage: values.bannerImage,
+        body: values.body,
+        category: values.category,
+        brief: values.brief,
+        title: values.title,
+        postLength: Number(values.postLength),
+        postedOn: serverTimestamp(),
+        author: currentUser.email
+      })
+      setTimeout(() => {
+        alert('your post has been submitted')
+        router.push('./')
+      }, 1000)
     }
   })
-
-  // function showAnyErrors (inputName) {
-  //   return formik.errors[inputName] && formik.touched[inputName]
-  //     ? <p className={styles.inputError}>{formik.errors[inputName]}</p>
-  //     : null
-  // }
-
-  // const [title, setTitle] = useState('')
-  // const [brief, setBrief] = useState('')
-  // const [category, setCategory] = useState('')
-  // const [postLength, setPostLength] = useState('')
-  // const [bannerImage, setBannerImage] = useState('')
-  // const [body, setBody] = useState('')
-
-  // const addPostToFireBase = async e => {
-  //   e.preventDefault()
-
-  //   await addDoc(collection(db, 'articles'), {
-  //     bannerImage: bannerImage,
-  //     body: body,
-  //     category: category,
-  //     brief: brief,
-  //     postedOn: serverTimestamp(),
-  //     postLength: Number(postLength),
-  //     title: title,
-  //     author: currentUser.email
-  //   })
-  //   // router.push('./')
-  // }
 
   return (
     <form className={styles.wrapper} onSubmit={formik.handleSubmit}>
@@ -105,168 +92,97 @@ const PostModal = () => {
         <span className={styles.inputContainer}>
           <input
             className={styles.inputField}
-            required
-            name='title'
             id='title'
             type='text'
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.title}
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            placeholder='mole'
+            {...formik.getFieldProps('title')}
           />
-          {formik.touched.title && formik.errors.title ? (
-            <div>{formik.errors.title}</div>
-          ) : null}
         </span>
+        <div className={styles.errorText}>
+          {formik.touched.title && formik.errors.title}
+        </div>
       </div>
 
       <div className={styles.smallField}>
         <label htmlFor='Brief' className={styles.fieldTitle}>Brief</label>
         <span className={styles.inputContainer}>
-          {/* {showAnyErrors('brief')} */}
           <input
             className={styles.inputField}
-            required
-            name='brief'
             id='brief'
             type='text'
-            onChange={formik.handleChange}
-            value={formik.values.brief}
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            placeholder=''
+            {...formik.getFieldProps('brief')}
           />
         </span>
+        <div className={styles.errorText}>
+          {formik.touched.brief && formik.errors.brief}
+        </div>
       </div>
 
       <div className={styles.smallField}>
-        <label htmlFor='Category' className={styles.fieldTitle}>Category</label>
+        <label htmlFor='Brief' className={styles.fieldTitle}>Category</label>
         <span className={styles.inputContainer}>
-          {/* {showAnyErrors('category')} */}
           <input
             className={styles.inputField}
-            required
-            name='category'
             id='category'
             type='text'
-            onChange={formik.handleChange}
-            value={formik.values.category}
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            placeholder=''
+            {...formik.getFieldProps('category')}
           />
         </span>
+        <div className={styles.errorText}>
+          {formik.touched.category && formik.errors.category}
+        </div>
       </div>
 
       <div className={styles.smallField}>
-        <label htmlFor='Post Length' className={styles.fieldTitle}>Estimated Read Length (mins)</label>
+        <label htmlFor='Post Length' className={styles.fieldTitle}>Estimated Read Length (mins) </label>
         <span className={styles.inputContainer}>
-          {/* {showAnyErrors('postLength')} */}
           <input
             className={styles.inputField}
-            required
-            name='postLength'
             id='postLength'
             type='number'
-            onChange={formik.handleChange}
-            value={formik.values.postLength}
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            placeholder=''
+            {...formik.getFieldProps('postLength')}
           />
         </span>
+        <div className={styles.errorText}>
+          {formik.touched.postLength && formik.errors.postLength}
+        </div>
       </div>
 
       <div className={styles.smallField}>
-        <label htmlFor='bannerImage' className={styles.fieldTitle}>Banner Image Link</label>
+        <label htmlFor='Banner Image' className={styles.fieldTitle}>Banner Image Link (mins) </label>
         <span className={styles.inputContainer}>
-          {/* {showAnyErrors('bannerImage')} */}
           <input
             className={styles.inputField}
-            required
-            name='bannerImage'
             id='bannerImage'
             type='text'
-            onChange={formik.handleChange}
-            value={formik.values.bannerImage}
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            placeholder=''
+            {...formik.getFieldProps('bannerImage')}
           />
         </span>
+        <div className={styles.errorText}>
+          {formik.touched.bannerImage && formik.errors.bannerImage}
+        </div>
       </div>
 
       <div className={styles.smallField}>
         <label htmlFor='Article Text' className={styles.fieldTitle}>Article Text</label>
         <span className={styles.inputContainer}>
-          {/* {showAnyErrors('body')} */}
           <textarea
             className={styles.inputField}
-            required
-            name='body'
             id='body'
-            type='textarea'
-            onChange={formik.handleChange}
-            value={formik.values.body}
+            type='text'
+            placeholder=''
             rows='12'
-            // value={title}
-            // onChange={e => setTitle(e.target.value)}
+            {...formik.getFieldProps('body')}
           />
         </span>
+        <div className={styles.errorText}>
+          {formik.touched.body && formik.errors.body}
+        </div>
       </div>
-
-      {/* <div className={styles.smallField}>
-        <span className={styles.fieldTitle}>Brief</span>
-        <span className={styles.inputContainer}>
-          <input className={styles.inputField}
-            type='text'
-            value={brief}
-            onChange={e => setBrief(e.target.value)}
-          />
-        </span>
-      </div>
-
-      <div className={styles.smallField}>
-        <span className={styles.fieldTitle}>Banner Image URL</span>
-        <span className={styles.inputContainer}>
-          <input className={styles.inputField}
-            type='text'
-            value={bannerImage}
-            onChange={e => setBannerImage(e.target.value)}
-          />
-        </span>
-      </div>
-
-      <div className={styles.smallField}>
-        <span className={styles.fieldTitle}>Category</span>
-        <span className={styles.inputContainer}>
-          <input className={styles.inputField}
-            type='text'
-            value={category}
-            onChange={e => setCategory(e.target.value)}
-          />
-        </span>
-      </div>
-
-      <div className={styles.smallField}>
-        <span className={styles.fieldTitle}>Estimated Read Length (mins)</span>
-        <span className={styles.inputContainer}>
-          <input className={styles.inputField}
-            type='text'
-            value={postLength}
-            onChange={e => setPostLength(e.target.value)}
-          />
-        </span>
-      </div>
-
-      <div className={styles.smallField}>
-        <span className={styles.fieldTitle}>Article Text</span>
-        <span className={styles.inputContainer}>
-          <textarea className={styles.inputField}
-            type='text'
-            rows='12'
-            value={body}
-            onChange={e => setBody(e.target.value)}
-          />
-        </span>
-      </div> */}
 
       <button className={styles.accentedButton} type='submit'>
         Submit

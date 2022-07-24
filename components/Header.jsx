@@ -55,7 +55,8 @@ const Header = () => {
           ? (<div className={styles.bannerNav}>
             <div>Our Story</div>
             <div>Membership</div>
-            <Link href={'/?addNew=1'}>
+            <Link
+              href={'/?addNew=1'}>
               <div className={styles.accentedButton}>Blog</div>
             </Link>
             <div className={styles.accentedButton}>Pay me</div>
