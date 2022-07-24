@@ -1,14 +1,15 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore'
 import { db, auth, provider } from '../firebase'
-import { signInWithPopup, signOut } from 'firebase/auth'
+import { signInWithPopup } from 'firebase/auth'
 
 const BlogsiteContext = createContext()
 
 const BlogsiteProvider = ({ children }) => {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
-  const [currentUser, setCurrentUser] = useState([])
+  const [currentUser, setCurrentUser] = useState(null)
+  console.log(currentUser)
 
   useEffect(() => {
     const getUsers = async () => {
@@ -21,8 +22,7 @@ const BlogsiteProvider = ({ children }) => {
             ...doc.data()
           }
         }
-      })
-      )
+      }))
     }
     getUsers()
   }, [])
@@ -41,13 +41,11 @@ const BlogsiteProvider = ({ children }) => {
             postLength: doc.data().postLength,
             bannerImage: doc.data().bannerImage,
             title: doc.data().title,
-            // comments: doc.data().comments,
             postedOn: doc.data().postedOn.toDate(),
             author: doc.data().author
           }
         }
-      })
-      )
+      }))
     }
     getPosts()
   }, [])
@@ -63,7 +61,10 @@ const BlogsiteProvider = ({ children }) => {
 
   const handleUserAuth = async () => {
     const userData = await signInWithPopup(auth, provider)
+    console.log(userData)
     const user = userData.user
+    console.log(userData.data)
+
     setCurrentUser(user)
     addUserToFirebase(user)
   }

@@ -7,9 +7,7 @@ import { GrLinkedin } from 'react-icons/gr'
 import { HiOutlineLink } from 'react-icons/hi'
 import { BiBookmarks } from 'react-icons/bi'
 import { FiMoreHorizontal } from 'react-icons/fi'
-
 import Image from 'next/image'
-import Banner from '../public/banner.png'
 
 const styles = {
   wrapper: 'flex items-center justify-center flex-[3] border-l border-r',
@@ -75,7 +73,7 @@ const ArticleMain = ({ post, author }) => {
           <div className={styles.bannerContainer}>
             <Image
               className={styles.image}
-              src={Banner}
+              src={`https://res.cloudinary.com/demo/image/fetch/${post?.data?.bannerImage}`}
               alt=''
               width={100}
               height={100}

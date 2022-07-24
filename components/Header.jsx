@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+
 import Image from 'next/image'
 import Logo from '../public/logo.png'
 import { BlogsiteContext } from '../context/BlogsiteContext'
@@ -37,6 +38,7 @@ const styles = {
 const Header = () => {
   const router = useRouter()
   const { handleUserAuth, currentUser } = useContext(BlogsiteContext)
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -50,28 +52,26 @@ const Header = () => {
           />
         </div>
         {currentUser
-          ? <div className={styles.bannerNav}>
+          ? (<div className={styles.bannerNav}>
             <div>Our Story</div>
             <div>Membership</div>
             <Link href={'/?addNew=1'}>
               <div className={styles.accentedButton}>Blog</div>
             </Link>
             <div className={styles.accentedButton}>Pay me</div>
-            <div>Logout</div>
-          </div>
-          : (
-            <div className={styles.bannerNav}>
-              <div>Our Story</div>
-              <div>Membership</div>
-              <div onClick={handleUserAuth}>Sign In</div>
-              <div className={styles.accentedButton}>Get Started</div>
-            </div>
-          )}
+          </div>)
+          : (<div className={styles.bannerNav}>
+            <div>Our Story</div>
+            <div>Membership</div>
+            <div className={styles.accentedButton}>Get Started</div>
+            <div onClick={handleUserAuth}>Sign In</div>
+          </div>)
+        }
 
       </div>
       <Modal
         isOpen={Boolean(router.query.addNew)}
-        onRequestClose={() => router.push('/')}
+        onRequestClose={() => router.push('./')}
         style={customStyles}
       >
         <PostModal/>
