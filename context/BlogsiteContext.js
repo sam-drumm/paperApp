@@ -9,7 +9,6 @@ const BlogsiteProvider = ({ children }) => {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
-  console.log(currentUser)
 
   useEffect(() => {
     const getUsers = async () => {
@@ -61,10 +60,7 @@ const BlogsiteProvider = ({ children }) => {
 
   const handleUserAuth = async () => {
     const userData = await signInWithPopup(auth, provider)
-    console.log(userData)
     const user = userData.user
-    console.log(userData.data)
-
     setCurrentUser(user)
     addUserToFirebase(user)
   }

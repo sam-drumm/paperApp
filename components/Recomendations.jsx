@@ -1,7 +1,8 @@
-import React from 'react'
+import React, from 'react'
 import Image from 'next/image'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdMarkEmailUnread } from 'react-icons/md'
+
 import ReplitLogo from '../public/replit.png'
 import TutorialImage from '../public/tutorial.jpg'
 import CPLogo from '../public/tutorial.jpg'
@@ -9,6 +10,8 @@ import Qazi from '../public/qazi.jpg'
 import JSLogo from '../public/jsLogo.png'
 
 const Recommendations = ({ author }) => {
+  
+
   const styles = {
     wrapper: 'h-screen m-width-[10rem] max-w-[30rem] flex-[1.2] p-[2rem]',
     accentedButton: 'flex items-center justify-center text-sm bg-black text-white my-[2rem] py-[.6rem] rounded-full',
@@ -54,7 +57,7 @@ const Recommendations = ({ author }) => {
             alt=''
           />
         </div>
-        <div className={styles.authorName}>Sam Drumm</div>
+        <div className={styles.authorName}>{author?.data?.name}</div>
         <div className={styles.authorFollowing}>1b followers</div>
         <div className={styles.authorActions}>
           <button className={styles.actionButton}>Follow</button>
@@ -67,7 +70,7 @@ const Recommendations = ({ author }) => {
         <div className={styles.articlesContainer}>
 
           {recommendedPosts.map(post => (
-            
+
             <div className={styles.articleContentWrapper}>
               <div className={styles.articleContent}>
 

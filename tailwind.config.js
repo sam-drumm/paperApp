@@ -18,7 +18,11 @@ module.exports = {
       mediumSerifItalic: ['CharterItalic'],
       mediumSerif: ['Charter']
     },
-    extend: {}
+    extend: {
+      fontFamily: {
+        PermanentMarker: ['Permanent Marker', 'cursive']
+      }
+    }
   },
   plugins: []
 }

@@ -23,9 +23,9 @@ const styles = {
   space: 'w-[.5rem]',
   bannerContainer: 'h-[18rem] w-full grid center overflow-hidden mb-[2rem]',
   articleMainContainer: 'flex flex-col gap-[1rem]',
-  title: 'font-bold text-3xl',
-  subtitle: 'font-mediumSerifItalic text-[1.4rem] text-[#292929]',
-  article: 'font-mediumSerif text-[1.4rem] text-[#292929]'
+  title: 'font-bold text-3xl font-PermanentMarker',
+  subtitle: 'font-mediumSerif italic text-[1.4rem] text-[#292929]',
+  articleText: 'font-mediumSerif text-[1.4rem] text-[#292929]'
 
 }
 
@@ -37,7 +37,7 @@ const ArticleMain = ({ post, author }) => {
           <div className={styles.authorContainer}>
             <div className={styles.authorProfileImageContainer}>
               <Image
-                src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageURL}`}
+                src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
                 className={styles.image}
                 alt=''
                 width={100}

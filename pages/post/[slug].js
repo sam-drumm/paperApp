@@ -26,7 +26,7 @@ const Post = () => {
     <div className={styles.content}>
       <ReadersNav/>
       <ArticleMain post={post} author={author}/>
-      <Recomendations/>
+      <Recomendations post={post} author={author}/>
     </div>
   )
 }

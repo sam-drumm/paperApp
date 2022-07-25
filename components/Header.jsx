@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
 
-import Image from 'next/image'
-import Logo from '../public/logo.png'
 import { BlogsiteContext } from '../context/BlogsiteContext'
 import Modal from 'react-modal'
 import { useRouter } from 'next/router'
@@ -30,9 +28,9 @@ const styles = {
   wrapper: 'flex justify-center gap-10 p-5 bg-[#FCC017]',
   content: 'max-w-7xl flex-1 flex justify-between gap-10',
   logoContainer: 'flex items-center flex-start',
-  logo: 'cursor-pointer object-contain',
+  logo: 'cursor-pointer object-contain font-PermanentMarker text-4xl',
   bannerNav: 'flex cursor-pointer items-center space-x-5',
-  accentedButton: 'bg-black text-white py-2 px-4 rounded-full'
+  accentedButton: 'rounded bg-black text-white py-2 px-4 rounded-full '
 }
 
 const Header = () => {
@@ -43,13 +41,9 @@ const Header = () => {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.logoContainer}>
-          <Image
-            className={styles.logo}
-            src={Logo}
-            alt='logo image'
-            height={40}
-            width={200}
-          />
+          <heading className={styles.logo}>
+            Paper App
+          </heading>
         </div>
         {currentUser
           ? (<div className={styles.bannerNav}>
@@ -59,13 +53,13 @@ const Header = () => {
               href={'/?addNew=1'}>
               <div className={styles.accentedButton}>Blog</div>
             </Link>
-            <div className={styles.accentedButton}>Pay me</div>
+            <button className={styles.accentedButton}>Pay me</button>
           </div>)
           : (<div className={styles.bannerNav}>
             <div>Our Story</div>
             <div>Membership</div>
-            <div className={styles.accentedButton}>Get Started</div>
-            <div onClick={handleUserAuth}>Sign In</div>
+            <button>Get Started</button>
+            <div className={styles.accentedButton} onClick={handleUserAuth}>Sign In</div>
           </div>)
         }
 
