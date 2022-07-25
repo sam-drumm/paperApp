@@ -26,8 +26,7 @@ const Recommendations = ({ author }) => {
     recommendationAuthorProfileImageContainer: 'rounded-full overflow-hidden h-[1.4rem] w-[1.4rem]',
     recommendationAuthorContainer: 'flex items-center gap-[.6rem]',
     recommendationTitle: 'font-bold',
-    articlesContainer: '',
-    title: '',
+    articlesContainer: 'flex-[4]',
     recommendationAuthorName: 'text-sm',
     recommendationThumbnailContainer: 'flex flex-1 items-center justify-center h-[4rem] w-[4rem]',
     recommendationThumbnail: 'object-cover',
@@ -50,12 +49,12 @@ const Recommendations = ({ author }) => {
 
       <div className={styles.authorContainer}>
         <div className={styles.authorProfileImageContainer}>
-          <Image
-            src={Qazi}
-            height={100}
-            width={100}
-            alt=''
-          />
+        <Image
+          src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
+          alt=''
+          width={100}
+          height={100}
+        />
         </div>
         <div className={styles.authorName}>{author?.data?.name}</div>
         <div className={styles.authorFollowing}>1b followers</div>
@@ -66,7 +65,7 @@ const Recommendations = ({ author }) => {
       </div>
 
       <div className={styles.recommendationsContainer}>
-        <div className={styles.title}>More from Medium</div>
+        <div className={styles.recommendationsTitle}>More from Medium</div>
         <div className={styles.articlesContainer}>
 
           {recommendedPosts.map(post => (
