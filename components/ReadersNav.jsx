@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Image from 'next/image'
-import Qazi from '../public/qazi.jpg'
 import SmallLogo from '../public/smallLogo.png'
 import { HiOutlineHome } from 'react-icons/hi'
 import { FiBell } from 'react-icons/fi'
@@ -18,7 +17,8 @@ const styles = {
   profileImage: 'object-cover',
   profileImageContainer: 'w-[2.4rem] h-[2.4rem] rounded-full overflow-hidden place-items-center',
   accentedButton: 'bg-black text-white py-2 px-4 rounded-full cursor-pointer',
-  standardButton: 'py-2 px-4 rounded-full cursor-pointer'
+  standardButton: 'py-2 px-4 rounded-full cursor-pointer',
+  logo: 'cursor-pointer object-contain font-PermanentMarker text-1xl'
 }
 
 const ReadersNav = () => {
@@ -28,9 +28,9 @@ const ReadersNav = () => {
     <div className={styles.wrapper}>
       <Link href='/'>
         <div className={styles.logoContainer}>
-          <Image
-            src={SmallLogo}
-          />
+          <heading className={styles.logo}>
+            Paper App
+          </heading>
         </div>
       </Link>
       <div className={styles.iconsContainer}>

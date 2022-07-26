@@ -1,7 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore'
-import { db, auth, provider } from '../firebase'
-import { signInWithPopup } from 'firebase/auth'
+import {
+  db, auth, provider
+  // , signout
+} from '../firebase'
+import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth'
 
 const BlogsiteContext = createContext()
 
@@ -49,6 +52,28 @@ const BlogsiteProvider = ({ children }) => {
     getPosts()
   }, [])
 
+  const handleUserAuth = async () => {
+    const userData = await signInWithPopup(auth, provider)
+    const user = userData.user
+    // setCurrentUser(user)
+    addUserToFirebase(user)
+  }
+
+  useEffect(() => {
+    const authState = async () => {
+      await onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setCurrentUser(user)
+          console.log('logged in')
+          console.log(currentUser)
+        } else {
+          console.log('logged out')
+        }
+      })
+    }
+    authState()
+  }, [handleUserAuth])
+
   const addUserToFirebase = async user => {
     await setDoc(doc(db, 'users', user.email), {
       email: user.email,
@@ -58,15 +83,19 @@ const BlogsiteProvider = ({ children }) => {
     })
   }
 
-  const handleUserAuth = async () => {
-    const userData = await signInWithPopup(auth, provider)
-    const user = userData.user
-    setCurrentUser(user)
-    addUserToFirebase(user)
+  const handleSignOut = async () => {
+    signOut(auth)
+    setCurrentUser(null)
   }
 
   return (
-    <BlogsiteContext.Provider value={{ posts, users, handleUserAuth, currentUser }}>
+    <BlogsiteContext.Provider value={{
+      posts,
+      users,
+      handleUserAuth,
+      currentUser,
+      handleSignOut
+    }}>
       {children}
     </BlogsiteContext.Provider>
   )

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-
 import { BlogsiteContext } from '../context/BlogsiteContext'
 import Modal from 'react-modal'
 import { useRouter } from 'next/router'
@@ -35,7 +34,12 @@ const styles = {
 
 const Header = () => {
   const router = useRouter()
-  const { handleUserAuth, currentUser } = useContext(BlogsiteContext)
+  const {
+    handleUserAuth, currentUser
+    , handleSignOut
+  } = useContext(BlogsiteContext)
+
+  // authState()
 
   return (
     <div className={styles.wrapper}>
@@ -54,6 +58,7 @@ const Header = () => {
               <div className={styles.accentedButton}>Blog</div>
             </Link>
             <button className={styles.accentedButton}>Pay me</button>
+            <div className={styles.accentedButton} onClick={handleSignOut}>Sign Out</div>
           </div>)
           : (<div className={styles.bannerNav}>
             <div>Our Story</div>

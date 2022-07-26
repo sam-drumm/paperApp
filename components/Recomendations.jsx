@@ -1,20 +1,17 @@
-import React, from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdMarkEmailUnread } from 'react-icons/md'
-
-import ReplitLogo from '../public/replit.png'
-import TutorialImage from '../public/tutorial.jpg'
-import CPLogo from '../public/tutorial.jpg'
-import Qazi from '../public/qazi.jpg'
-import JSLogo from '../public/jsLogo.png'
+import { BlogsiteContext } from '../context/BlogsiteContext'
+import RecommendationCard from './RecommendationCard'
 
 const Recommendations = ({ author }) => {
-  
+  const { posts, handleUserAuth, currentUser } = useContext(BlogsiteContext)
 
   const styles = {
     wrapper: 'h-screen m-width-[10rem] max-w-[30rem] flex-[1.2] p-[2rem]',
-    accentedButton: 'flex items-center justify-center text-sm bg-black text-white my-[2rem] py-[.6rem] rounded-full',
+    accentedButton: 'flex items-center justify-center text-sm bg-black text-white my-[2rem] py-[.6rem] rounded-full cursor-pointer',
     searchBar: 'flex items-center gap-[.6rem] h-[2.6rem] border px-[1rem] rounded-full',
     searchInput: 'border-none outline-none bg-none w-full',
     authorContainer: 'my-[2rem]',
@@ -30,14 +27,24 @@ const Recommendations = ({ author }) => {
     recommendationAuthorName: 'text-sm',
     recommendationThumbnailContainer: 'flex flex-1 items-center justify-center h-[4rem] w-[4rem]',
     recommendationThumbnail: 'object-cover',
-    articleContentWrapper: 'flex item-center justify-between cursor-pointer my-[1rem]',
-    articleContent: 'flex-[4]'
-
+    articleContent: 'flex-[4]',
+    recommendationList: 'flex flex-col gap-3 p-1 sm:grid-cols-2 md:gap-6 md:p-3 lg:grid-cols-3'
   }
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.accentedButton}>Join now</div>
+      {currentUser
+        ? (
+          <div className={styles.accentedButton} onClick={handleUserAuth}>Blog</div>
+        )
+        : (
+          <Link
+            href={'/?addNew=1'}>
+            <div className={styles.accentedButton}>Blog</div>
+          </Link>
+        )
+      }
+
       <div className={styles.searchBar}>
         <AiOutlineSearch/>
         <input
@@ -49,12 +56,12 @@ const Recommendations = ({ author }) => {
 
       <div className={styles.authorContainer}>
         <div className={styles.authorProfileImageContainer}>
-        <Image
-          src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
-          alt=''
-          width={100}
-          height={100}
-        />
+          <Image
+            src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
+            alt=''
+            width={100}
+            height={100}
+          />
         </div>
         <div className={styles.authorName}>{author?.data?.name}</div>
         <div className={styles.authorFollowing}>1b followers</div>
@@ -65,41 +72,44 @@ const Recommendations = ({ author }) => {
       </div>
 
       <div className={styles.recommendationsContainer}>
-        <div className={styles.recommendationsTitle}>More from Medium</div>
+        <div className={styles.recommendationsTitle}>More from Paper App</div>
+
         <div className={styles.articlesContainer}>
+          <div className={styles.recommendationList}>
+            {posts.slice(-3).map(post => (
+              <RecommendationCard post={post} key={post.id} />
+            ))
+            }
+          </div>
 
-          {recommendedPosts.map(post => (
-
-            <div className={styles.articleContentWrapper}>
-              <div className={styles.articleContent}>
-
-                <div className={styles.recommendationAuthorContainer}>
-                  <div className={styles.recommendationAuthorProfileImageContainer}>
-                    <Image
-                      src={post.author.image}
-                      height={100}
-                      width={100}
-                      alt=''
-                    />
-                  </div>
-                  <div className={styles.recommendationAuthorName}>{post.author.name}</div>
+          {/* <div className={styles.articleContentWrapper}>
+            <div className={styles.articleContent}>
+              <div className={styles.recommendationAuthorContainer}>
+                <div className={styles.recommendationAuthorProfileImageContainer}>
+                  <Image
+                    src={post.author.imageURL}
+                    height={100}
+                    width={100}
+                    alt=''
+                  />
                 </div>
-                <div className={styles.recommendationTitle}>{post.title}</div>
+                <div className={styles.recommendationAuthorName}>{post.author.name}</div>
               </div>
-
-              <div className={styles.recommendationThumbnailContainer}>
-                <Image
-                  className={styles.recommendationThumbnail}
-                  src={post.image}
-                  height={100}
-                  width={100}
-                  alt=''
-                />
-              </div>
-
+              <div className={styles.recommendationTitle}>{post.title}</div>
             </div>
 
-          ))}
+            <div className={styles.recommendationThumbnailContainer}>
+              <Image
+                className={stydiv className={style.}les.recommendationThumbnail}
+                src={post.image
+                height={100}
+                width={100}
+                alt=''
+              />
+            </div>
+
+          </div> */}
+
         </div>
       </div>
     </div>
@@ -108,29 +118,29 @@ const Recommendations = ({ author }) => {
 
 export default Recommendations
 
-const recommendedPosts = [
-  {
-    title: 'How to look cool when you\'re poor',
-    image: ReplitLogo,
-    author: {
-      name: 'Mole Jones',
-      image: CPLogo
-    }
-  },
-  {
-    title: 'How to get a tax cut when you\'re rich',
-    image: TutorialImage,
-    author: {
-      name: 'Carmen Sandiago',
-      image: Qazi
-    }
-  },
-  {
-    title: 'You can grow your own food when you run out!',
-    image: JSLogo,
-    author: {
-      name: 'Ayn Rand',
-      image: CPLogo
-    }
-  }
-]
+// const recommendedPosts = [
+//   {
+//     title: 'How to look cool when you\'re poor',
+//     image: ReplitLogo,
+//     author: {
+//       name: 'Mole Jones',
+//       image: CPLogo
+//     }
+//  div className={style.} },
+//
+//     title: 'How to get a tax cut when you\'re rich',
+//     image: TutorialImage,
+//     author: {
+//       name: 'Carmen Sandiago',
+//       image: Qazi
+//     }
+//  div className={style.} },
+//
+//     title: 'You can grow your own food when you run out!',
+//     image: JSLogo,
+//     author: {
+//       name: 'Ayn Rand',
+//       image: CPLogo
+//     }
+// div className={style.}   }
+//

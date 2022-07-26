@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-import Background from '../public/banner.png'
 import Scribble from '../public/scribble3.png'
 
 const Banner = () => {
@@ -24,7 +23,6 @@ const Banner = () => {
           alt=''
           height='500'
           width='400'
-
         />
       </div>
     </div>
