@@ -34,7 +34,7 @@ const RecommendationCard = ({ post }) => {
   }, [post])
 
   return (
-    <Link href={`/post/${post.id}`}>
+    <Link href={`./${post.id}`}>
       <div className='noteList-item'>
         {/* <div className={styles.wrapper}> */}
         <div className={styles.postDetails}>

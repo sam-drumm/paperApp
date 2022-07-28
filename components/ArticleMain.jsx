@@ -26,7 +26,6 @@ const styles = {
   title: 'font-bold text-3xl font-PermanentMarker',
   subtitle: 'font-mediumSerif italic text-[1.4rem] text-[#292929]',
   articleText: 'font-mediumSerif text-[1.4rem] text-[#292929]'
-
 }
 
 const ArticleMain = ({ post, author }) => {

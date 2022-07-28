@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import ArticleMain from '../../components/ArticleMain'
 import ReadersNav from '../../components/ReadersNav'
-import Recomendations from '../../components/Recomendations'
+import Recommendations from '../../components/Recommendations'
 import { BlogsiteContext } from '../../context/BlogsiteContext'
 const styles = {
   content: 'flex'
@@ -20,13 +20,13 @@ const Post = () => {
     }
     setPost(posts.find(post => post.id === router.query.slug))
     setAuthor(users.find(user => user.id === post.data?.author))
-  }, [post])
+  })
 
   return (
     <div className={styles.content}>
       <ReadersNav/>
       <ArticleMain post={post} author={author}/>
-      <Recomendations post={post} author={author}/>
+      <Recommendations post={post} author={author}/>
     </div>
   )
 }

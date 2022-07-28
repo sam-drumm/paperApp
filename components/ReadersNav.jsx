@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Image from 'next/image'
-import SmallLogo from '../public/smallLogo.png'
 import { HiOutlineHome } from 'react-icons/hi'
 import { FiBell } from 'react-icons/fi'
 import { BiBookmarks } from 'react-icons/bi'

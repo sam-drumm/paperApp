@@ -64,10 +64,8 @@ const BlogsiteProvider = ({ children }) => {
       await onAuthStateChanged(auth, (user) => {
         if (user) {
           setCurrentUser(user)
-          console.log('logged in')
-          console.log(currentUser)
         } else {
-          console.log('logged out')
+          return null
         }
       })
     }
