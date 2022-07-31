@@ -22,27 +22,30 @@ a {
 }
 
 .noteList-item {
-  flex: auto;
+  flex:content;
   max-width: 46rem;
   height:10rem;
   align-items:center;
   gap:1rem;
   cursor: pointer;
-  padding: 100px 25px 100px 25px ;
-  /* margin: 25px; */
-  display: flex;
+  padding: 1.25rem .75rem .75rem .75rem;
+  /* display: flex; */
   justify-content: left;
   flex-direction: row;
+  /* margin: 25px; */
+  /* overflow:hidden; */
   border-style: solid;
-  border-width: 2px;
+  border-width: .1rem;
   box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
   box-sizing: border-box;
-  color: #41403e;
+  /* color: #41403e; */
   transition: all 235ms ease-in-out;
   border-bottom-left-radius: 15px 255px;
   border-bottom-right-radius: 225px 15px;
   border-top-left-radius: 255px 15px;
   border-top-right-radius: 15px 225px;
+  background: #fcfcfc;
+  border-color: #231651
 }
 
 .noteList-item:hover {

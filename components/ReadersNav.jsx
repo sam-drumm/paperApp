@@ -10,14 +10,14 @@ import Link from 'next/link'
 
 const styles = {
   logoContainer: 'cursor-pointer',
-  wrapper: 'w-[5rem] h-screen flex flex-col justify-between items-center p-[1rem]',
+  wrapper: 'w-[5rem] h-f flex flex-col justify-between items-center p-[1rem] bg-[#4dccbd]',
   iconsContainer: 'flex-1 flex flex-col justify-center gap-[1.4rem] text-2xl text-[#787878]',
   divider: 'border-b',
   profileImage: 'object-cover',
   profileImageContainer: 'w-[2.4rem] h-[2.4rem] rounded-full overflow-hidden place-items-center',
-  accentedButton: 'bg-black text-white py-2 px-4 rounded-full cursor-pointer',
-  standardButton: 'py-2 px-4 rounded-full cursor-pointer',
-  logo: 'cursor-pointer object-contain font-PermanentMarker text-1xl'
+  accentedButton: 'bg-[#231651] text-white py-2 px-4 rounded-full cursor-pointer ',
+  standardButton: 'py-2 px-4 rounded-full cursor-pointer text-white',
+  logo: 'cursor-pointer object-contain font-PermanentMarker text-1xl text-[#231651]'
 }
 
 const ReadersNav = () => {
@@ -27,9 +27,9 @@ const ReadersNav = () => {
     <div className={styles.wrapper}>
       <Link href='/'>
         <div className={styles.logoContainer}>
-          <heading className={styles.logo}>
+          <h1 className={styles.logo}>
             Paper App
-          </heading>
+          </h1>
         </div>
       </Link>
       <div className={styles.iconsContainer}>
@@ -54,6 +54,7 @@ const ReadersNav = () => {
         </div>
 
         <div className={styles.divider} />
+
         <Link
           href={'/?addNew=1'}>
           <div className={styles.accentedButton}>

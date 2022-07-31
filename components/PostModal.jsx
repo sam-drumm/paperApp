@@ -34,14 +34,14 @@ const registerSchema = Yup.object().shape({
     .max(15, 'Sorry, this must be under 15 characters long')
     .required('Required'),
   postLength: Yup.number()
-    .min(1, 'Surely this will take at-least 1min to read?')
-    .max(30, 'Longer than 30mins to read? You know this is the internet right?')
-    .required('Required'),
+    .min(2, 'Surely this will take at-least 1min to read?')
+    .max(30, 'Longer than 30mins to read? You know this is the internet right?!')
+    .required('Please input a number'),
   bannerImage: Yup.string()
     .matches(
       /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-      'Enter correct url!')
-    .required('Please enter website'),
+      'Please enter a correct url')
+    .required('Please enter webs link to an image'),
   body: Yup.string()
     .min(50, 'This must be at least 20 characters long')
     .max(2500, 'Sorry, this must be under 2500 characters long')
@@ -94,13 +94,13 @@ const PostModal = () => {
             className={styles.inputField}
             id='title'
             type='text'
-            placeholder='mole'
+            placeholder=' Why did the chicken cross the road?'
             {...formik.getFieldProps('title')}
           />
         </span>
-        <div className={styles.errorText}>
-          {formik.touched.title && formik.errors.title}
-        </div>
+      </div>
+      <div className={styles.errorText}>
+        {formik.touched.title && formik.errors.title}
       </div>
 
       <div className={styles.smallField}>
@@ -110,13 +110,13 @@ const PostModal = () => {
             className={styles.inputField}
             id='brief'
             type='text'
-            placeholder=''
+            placeholder=' Sadly, you&apos;ve been told the wrong story for years.'
             {...formik.getFieldProps('brief')}
           />
         </span>
-        <div className={styles.errorText}>
-          {formik.touched.brief && formik.errors.brief}
-        </div>
+      </div>
+      <div className={styles.errorText}>
+        {formik.touched.brief && formik.errors.brief}
       </div>
 
       <div className={styles.smallField}>
@@ -126,13 +126,13 @@ const PostModal = () => {
             className={styles.inputField}
             id='category'
             type='text'
-            placeholder=''
+            placeholder=' Fairy tales'
             {...formik.getFieldProps('category')}
           />
         </span>
-        <div className={styles.errorText}>
-          {formik.touched.category && formik.errors.category}
-        </div>
+      </div>
+      <div className={styles.errorText}>
+        {formik.touched.category && formik.errors.category}
       </div>
 
       <div className={styles.smallField}>
@@ -142,29 +142,29 @@ const PostModal = () => {
             className={styles.inputField}
             id='postLength'
             type='number'
-            placeholder=''
+            placeholder=' 2'
             {...formik.getFieldProps('postLength')}
           />
         </span>
-        <div className={styles.errorText}>
-          {formik.touched.postLength && formik.errors.postLength}
-        </div>
+      </div>
+      <div className={styles.errorText}>
+        {formik.touched.postLength && formik.errors.postLength}
       </div>
 
       <div className={styles.smallField}>
-        <label htmlFor='Banner Image' className={styles.fieldTitle}>Banner Image Link (mins) </label>
+        <label htmlFor='Banner Image' className={styles.fieldTitle}>Banner Image Link</label>
         <span className={styles.inputContainer}>
           <input
             className={styles.inputField}
             id='bannerImage'
             type='text'
-            placeholder=''
+            placeholder=' www.dummyimage.com/600x400'
             {...formik.getFieldProps('bannerImage')}
           />
         </span>
-        <div className={styles.errorText}>
-          {formik.touched.bannerImage && formik.errors.bannerImage}
-        </div>
+      </div>
+      <div className={styles.errorText}>
+        {formik.touched.bannerImage && formik.errors.bannerImage}
       </div>
 
       <div className={styles.smallField}>
@@ -174,14 +174,22 @@ const PostModal = () => {
             className={styles.inputField}
             id='body'
             type='text'
-            placeholder=''
+            placeholder='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si qua in iis corrigere voluit, deteriora fecit. ALIO MODO. Et quidem, inquit, vehementer errat; Beatus sibi videtur esse moriens. Verum hoc idem saepe faciamus. Duo Reges: constructio interrete. Estne, quaeso, inquam, sitienti in bibendo voluptas? Utram tandem linguam nescio?
+
+            Quid ait Aristoteles reliquique Platonis alumni? Eademne, quae restincta siti? Non quam nostram quidem, inquit Pomponius iocans; Ille vero, si insipiens-quo certe, quoniam tyrannus -, numquam beatus; Quid ad utilitatem tantae pecuniae? Mihi enim satis est, ipsis non satis.
+
+            Tamen a proposito, inquam, aberramus. Satis est ad hoc responsum. Prave, nequiter, turpiter cenabat; Iam id ipsum absurdum, maximum malum neglegi.
+
+            Tum Torquatus: Prorsus, inquit, assentior; Nam Pyrrho, Aristo, Erillus iam diu abiecti. Non quam nostram quidem, inquit Pomponius iocans;
+
+            '
             rows='12'
             {...formik.getFieldProps('body')}
           />
         </span>
-        <div className={styles.errorText}>
-          {formik.touched.body && formik.errors.body}
-        </div>
+      </div>
+      <div className={styles.errorText}>
+        {formik.touched.body && formik.errors.body}
       </div>
 
       <button className={styles.accentedButton} type='submit'>
