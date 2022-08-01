@@ -37,13 +37,14 @@ const Recommendations = ({ author }) => {
     <div className={styles.wrapper}>
       {currentUser
         ? (
-          <div className={styles.accentedButton} onClick={handleUserAuth}>Blog</div>
-        )
-        : (
           <Link
             href={'/?addNew=1'}>
             <div className={styles.accentedButton}>Blog</div>
           </Link>
+        )
+        : (
+          <div className={styles.accentedButton} onClick={handleUserAuth}>Login
+          </div>
         )
       }
 

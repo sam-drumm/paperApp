@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Image from 'next/image'
-import { HiOutlineHome } from 'react-icons/hi'
+import { HiOutlineHome, HiLogin } from 'react-icons/hi'
 import { FiBell } from 'react-icons/fi'
 import { BiBookmarks } from 'react-icons/bi'
 import { RiArticleLine } from 'react-icons/ri'
@@ -21,7 +21,7 @@ const styles = {
 }
 
 const ReadersNav = () => {
-  const { currentUser } = useContext(BlogsiteContext)
+  const { currentUser, handleUserAuth } = useContext(BlogsiteContext)
 
   return (
     <div className={styles.wrapper}>
@@ -55,21 +55,38 @@ const ReadersNav = () => {
 
         <div className={styles.divider} />
 
-        <Link
-          href={'/?addNew=1'}>
-          <div className={styles.accentedButton}>
-            <BsPencilSquare/>
+        {currentUser ? (
+          <Link
+            href={'/?addNew=1'}>
+            <div className={styles.accentedButton}>
+              <BsPencilSquare/>
+            </div>
+          </Link>
+        )
+          : (
+
+            <div className={styles.accentedButton} onClick={handleUserAuth}>
+              <HiLogin/>
+            </div>
+
+          )}
+      </div>
+
+      {currentUser
+        ? (
+          <div className={styles.profileImageContainer}>
+            <Image
+              className={styles.profileImage}
+              src={`https://res.cloudinary.com/demo/image/fetch/${currentUser?.photoURL}`}
+              height={40}
+              width={40}
+            />
           </div>
-        </Link>
-      </div>
-      <div className={styles.profileImageContainer}>
-        <Image
-          className={styles.profileImage}
-          src={`https://res.cloudinary.com/demo/image/fetch/${currentUser?.photoURL}`}
-          height={40}
-          width={40}
-        />
-      </div>
+        )
+        : (
+          null
+        )
+      }
     </div>
   )
 }
